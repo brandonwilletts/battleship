@@ -149,4 +149,19 @@ describe("Receive Attack", () => {
   });
 });
 
-//Player
+describe("Player", () => {
+  const player = new Player("John");
+
+  test("name", () => {
+    expect(player.name).toBe("John");
+  });
+
+  test("realPlayer", () => {
+    expect(player.realPlayer).toBe(true);
+  });
+
+  test("gameboard size = 10x10", () => {
+    expect(player.gameboard.board.length).toBe(10);
+    expect(player.gameboard.board[9].length).toBe(10);
+  });
+});

@@ -122,5 +122,9 @@ export class Gameboard {
 }
 
 export class Player {
-  constructor() {}
+  constructor(name, realPlayer = true, gridSize = 10) {
+    this.name = name;
+    this.realPlayer = realPlayer;
+    this.gameboard = new Gameboard(gridSize);
+  }
 }
