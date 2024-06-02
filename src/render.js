@@ -7,30 +7,23 @@ export function renderBoard(board) {
     boardContainer.appendChild(col);
 
     for (let j = 0; j < board[i].length; j++) {
-      const square = document.createElement("button");
-      square.textContent = `${i}, ${j}`;
-      square.classList.add("square");
-      square.dataset.x = `${i}`;
-      square.dataset.y = `${j}`;
+      const squareBtn = document.createElement("button");
+      squareBtn.classList.add("square");
+      squareBtn.dataset.x = `${i}`;
+      squareBtn.dataset.y = `${j}`;
 
-      switch (board[i][j]) {
-        case 0:
-          square.classList.add("empty");
-          break;
-        case "miss":
-          square.classList.add("miss");
-          break;
-        case "hit":
-          square.classList.add("hit");
-          break;
-        case "sunk":
-          square.classList.add("sunk");
-          break;
-        default:
-          square.classList.add("ship");
-          break;
-      }
-      col.appendChild(square);
+      const square = board[i][j];
+
+      if (square.status === "miss") squareBtn.classList.add("miss");
+      else if (square.status === "hit") squareBtn.classList.add("hit");
+      else if (square.status === "sunk") {
+        squareBtn.classList.remove("hit");
+        squareBtn.classList.add("sunk");
+      } else if (square.status === null && square.ship != null)
+        squareBtn.classList.add("ship");
+      else squareBtn.classList.add("empty");
+
+      col.appendChild(squareBtn);
     }
   }
 }

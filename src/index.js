@@ -10,6 +10,7 @@ renderBoard(player.gameboard.board);
 const randomize = document.querySelector(".randomize");
 randomize.addEventListener("click", () => {
   player.gameboard.resetBoard();
+
   player.gameboard.placeAllShipsRandom();
   deleteBoard();
   renderBoard(player.gameboard.board);
