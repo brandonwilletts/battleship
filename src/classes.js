@@ -34,12 +34,20 @@ export class Gameboard {
     return rows;
   }
 
+  resetBoard() {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        this.board[i][j] = 0;
+      }
+    }
+  }
+
   createShips() {
-    const carrier = new Ship("carrier", 5);
-    const battleship = new Ship("battleship", 4);
-    const cruiser = new Ship("cruiser", 3);
-    const submarine = new Ship("submarine", 3);
-    const destroyer = new Ship("destroyer", 2);
+    const carrier = new Ship("Carrier", 5);
+    const battleship = new Ship("Battleship", 4);
+    const cruiser = new Ship("Cruiser", 3);
+    const submarine = new Ship("Submarine", 3);
+    const destroyer = new Ship("Destroyer", 2);
     return [carrier, battleship, cruiser, submarine, destroyer];
   }
 
@@ -66,6 +74,11 @@ export class Gameboard {
     return [x, y];
   }
 
+  getRandomOrientation() {
+    const binaryNumber = Math.floor(Math.random() * 2);
+    return binaryNumber === 0 ? "horizontal" : "vertical";
+  }
+
   placeShip(ship, coordinates) {
     const x = coordinates[0];
     const y = coordinates[1];
@@ -85,9 +98,16 @@ export class Gameboard {
   }
 
   placeShipRandom(ship) {
+    ship.orientation = this.getRandomOrientation();
     const place = this.placeShip(ship, this.getRandomCoordinates());
     if (place === false) {
       this.placeShipRandom(ship);
+    }
+  }
+
+  placeAllShipsRandom() {
+    for (let i = 0; i < this.ships.length; i++) {
+      this.placeShipRandom(this.ships[i]);
     }
   }
 
@@ -101,13 +121,22 @@ export class Gameboard {
 
     if (this.board[x][y] === 0) {
       this.board[x][y] = "miss";
-      return this.board[x][y];
+      return "Miss!";
     } else if (this.ships.some((item) => item === this.board[x][y])) {
       const ship = this.board[x][y];
       ship.hit();
-      if (ship.isSunk()) ship.sunk = true;
-      this.board[x][y] = "hit";
-      return this.board[x][y];
+      if (!ship.isSunk()) {
+        this.board[x][y] = "hit";
+        return "Hit!";
+      } else if (ship.isSunk()) {
+        ship.sunk = true;
+        this.board[x][y] = "sunk";
+        if (!this.allSunk()) {
+          return `${ship.name} Sunk!`;
+        } else {
+          return "Game Over!";
+        }
+      }
     } else {
       return null;
     }
