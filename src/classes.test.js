@@ -102,12 +102,12 @@ describe("Ship Placement", () => {
 describe("Receive Attack", () => {
   describe("Miss", () => {
     test("Return value = miss", () => {
-      expect(gameboard.receiveAttack([9, 9])).toBe("miss");
+      expect(gameboard.receiveAttack([9, 9])).toBe("Miss!");
     });
 
     test("Board value = miss", () => {
       gameboard.receiveAttack([9, 9]);
-      expect(gameboard.board[9][9]).toBe("miss");
+      expect(gameboard.board[9][9].status).toBe("miss");
     });
 
     test("Previous miss = null", () => {
@@ -118,11 +118,11 @@ describe("Receive Attack", () => {
 
   describe("Hit", () => {
     test("Return value = hit", () => {
-      expect(gameboard.receiveAttack([0, 0])).toBe("hit");
+      expect(gameboard.receiveAttack([0, 0])).toBe("Hit!");
     });
 
     test("Board value = hit", () => {
-      expect(gameboard.board[0][0]).toBe("hit");
+      expect(gameboard.board[0][0].status).toBe("hit");
     });
 
     test("Ship to have hits = 1", () => {

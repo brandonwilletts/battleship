@@ -133,11 +133,12 @@ export class Gameboard {
   receiveAttack(coordinates) {
     const x = coordinates[0];
     const y = coordinates[1];
-    const square = this.board[x][y];
 
-    if (this.board[x] === undefined || square === undefined) {
+    if (this.board[x] === undefined || this.board[x][y] === undefined) {
       return null;
     }
+
+    const square = this.board[x][y];
 
     if (square.status === null && square.ship === null) {
       square.status = "miss";
