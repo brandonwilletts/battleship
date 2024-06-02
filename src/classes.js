@@ -49,6 +49,10 @@ export class Gameboard {
         this.board[i][j].ship = null;
       }
     }
+    for (let i = 0; i < this.ships.length; i++) {
+      this.ships[i].hits = 0;
+      this.ships[i].sunk = false;
+    }
   }
 
   createShips() {
