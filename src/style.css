@@ -4,6 +4,24 @@ body {
   gap: 32px;
 }
 
+.body-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gameplay {
+  display: none;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .board {
   display: flex;
   flex-direction: row;
@@ -20,7 +38,7 @@ body {
   border: 1.5px solid black;
 }
 
-.square:hover {
+.enemy:hover {
   cursor: pointer;
   border-color: white;
 }
@@ -45,7 +63,7 @@ body {
   background-color: skyblue;
 }
 
-.randomize {
+.btn {
   background-color: red;
   color: white;
   width: fit-content;
@@ -54,7 +72,7 @@ body {
   border: 1px solid black;
 }
 
-.randomize:hover {
+.btn:hover {
   cursor: pointer;
   background-color: darkred;
 }

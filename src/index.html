@@ -6,8 +6,32 @@
     <title>Battleship</title>
   </head>
   <body>
-    <div class="board"></div>
-    <button class="randomize">Randomize</button>
-    <div class="alert"></div>
+    <div class="body-content">
+      <div class="start-screen">
+        <h1>Battleship</h1>
+        <button class="btn" id="start-btn">Start</button>
+      </div>
+      <div class="gameplay">
+        <div class="board-container">
+          <h2>Player</h2>
+          <div id="player-board"></div>
+          <div id="player-alert"></div>
+        </div>
+        <div class="board-container">
+          <h2>Enemy</h2>
+          <div id="enemy-board"></div>
+          <div id="enemy-alert"></div>
+        </div>
+      </div>
+    </div>
+    <dialog id="place-ships">
+      <div></div>
+      <button class="btn" id="randomize">Randomize</button>
+      <button class="btn" id="play-btn">Play</button>
+    </dialog>
+    <dialog id="endgame">
+      <h1></h1>
+      <button class="btn" id="play-again">Play Again</button>
+    </dialog>
   </body>
 </html>

@@ -1,20 +1,4 @@
-export class Ship {
-  constructor(name, length) {
-    this.name = name;
-    this.orientation = "horizontal";
-    this.length = length;
-    this.hits = 0;
-    this.sunk = false;
-  }
-
-  hit() {
-    this.hits++;
-  }
-
-  isSunk() {
-    return this.hits >= this.length;
-  }
-}
+import { Ship } from "./ship";
 
 class Square {
   constructor(status = null, ship = null) {
@@ -88,8 +72,8 @@ export class Gameboard {
   }
 
   getRandomCoordinates() {
-    const x = Math.floor(Math.random() * (this.board.length - 1));
-    const y = Math.floor(Math.random() * (this.board.length - 1));
+    const x = Math.floor(Math.random() * this.board.length);
+    const y = Math.floor(Math.random() * this.board.length);
     return [x, y];
   }
 
@@ -125,6 +109,7 @@ export class Gameboard {
   }
 
   placeAllShipsRandom() {
+    this.resetBoard();
     for (let i = 0; i < this.ships.length; i++) {
       this.placeShipRandom(this.ships[i]);
     }
@@ -158,11 +143,7 @@ export class Gameboard {
           });
         }
 
-        if (!this.allSunk()) {
-          return `${square.ship.name} Sunk!`;
-        } else {
-          return "Game Over!";
-        }
+        return `${square.ship.name} Sunk!`;
       }
     } else {
       return null;
@@ -174,13 +155,5 @@ export class Gameboard {
       if (!this.ships[i].sunk) return false;
     }
     return true;
-  }
-}
-
-export class Player {
-  constructor(name, realPlayer = true, gridSize = 10) {
-    this.name = name;
-    this.realPlayer = realPlayer;
-    this.gameboard = new Gameboard(gridSize);
   }
 }
