@@ -2,6 +2,8 @@ export function screenController() {
   const placeShipsDialog = document.querySelector("#place-ships");
   const dialogBoardContainer = placeShipsDialog.firstChild;
   const endgameDialog = document.querySelector("#endgame");
+  const enemyAlert = document.querySelector("#enemy-alert");
+  const playerAlert = document.querySelector("#player-alert");
 
   function renderBoard(gameboard, enemyBoard = false) {
     const board = gameboard.board;
@@ -17,6 +19,7 @@ export function screenController() {
       for (let j = 0; j < board[i].length; j++) {
         const squareBtn = document.createElement("button");
         squareBtn.classList.add("square");
+        squareBtn.textContent = `${i}, ${j}`;
         if (enemyBoard == true) {
           squareBtn.classList.add("enemy");
         }
@@ -86,6 +89,9 @@ export function screenController() {
     enemyBoardContainer.textContent = "";
     const enemyBoard = renderBoard(enemy.gameboard, true);
     enemyBoardContainer.appendChild(enemyBoard);
+
+    playerAlert.textContent = player.gameboard.getAlert();
+    enemyAlert.textContent = enemy.gameboard.getAlert();
   }
 
   return {
