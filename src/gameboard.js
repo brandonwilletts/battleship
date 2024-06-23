@@ -12,7 +12,6 @@ export class Gameboard {
     this.board = this.createBoard(gridSize);
     this.ships = this.createShips();
     this.alert = "";
-    //
     this.uniqueHits = [];
     this.nextAttacks = [];
   }
@@ -40,6 +39,7 @@ export class Gameboard {
     for (let i = 0; i < this.ships.length; i++) {
       this.ships[i].hits = 0;
       this.ships[i].sunk = false;
+      this.ships[i].setPlaced(false);
     }
     this.setAlert("");
   }
@@ -54,23 +54,27 @@ export class Gameboard {
   }
 
   shipPlacementIsValid(ship, coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
-    if (this.board[x] === undefined || this.board[y] === undefined)
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
+    if (this.board[x] === undefined || this.board[y] === undefined) {
       return false;
+    }
+
     if (ship.orientation == "horizontal") {
       for (let i = x; i < x + ship.length; i++) {
         if (
           this.board[i] === undefined ||
           this.board[i][y] === undefined ||
           this.board[i][y].ship != null
-        )
+        ) {
           return false;
+        }
       }
     } else {
       for (let i = y; i < y + ship.length; i++) {
-        if ((this.board[x][i] === undefined || this.board[x][i].ship) != null)
+        if ((this.board[x][i] === undefined || this.board[x][i].ship) != null) {
           return false;
+        }
       }
     }
     return true;
@@ -88,8 +92,8 @@ export class Gameboard {
   }
 
   placeShip(ship, coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
     if (this.shipPlacementIsValid(ship, coordinates)) {
       if (ship.orientation == "horizontal") {
         for (let i = x; i < x + ship.length; i++) {
@@ -121,8 +125,8 @@ export class Gameboard {
   }
 
   pushToUniqueHitsIfValid(coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
     const ship = this.board[x][y].ship;
     if (
       !this.uniqueHits.some(
@@ -134,8 +138,8 @@ export class Gameboard {
   }
 
   receiveAttack(coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
 
     if (this.board[x] === undefined || this.board[x][y] === undefined) {
       return null;
@@ -203,8 +207,8 @@ export class Gameboard {
   }
 
   calcNextAttacksOnHit(coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
     const ship = this.board[x][y].ship;
     let targets = [];
     let loop1 = true;
@@ -322,8 +326,8 @@ export class Gameboard {
   }
 
   checkValidAttackCoordinates(coordinates) {
-    const x = coordinates[0];
-    const y = coordinates[1];
+    const x = Number(coordinates[0]);
+    const y = Number(coordinates[1]);
     if (
       this.board[x] === undefined ||
       this.board[y] === undefined ||

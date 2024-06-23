@@ -1,13 +1,128 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  --navy: rgb(5, 5, 30);
+  --navy-light: rgb(30, 30, 49);
+  --white: white;
+  --red: red;
+  --dark-red: darkred;
+  --empty: skyblue;
+  --ship: rgb(108, 108, 108);
+  --ship-hover: blue;
+  --ship-select: blue;
+  --miss: white;
+  --hit: orange;
+  --sunk: red;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 32px;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+h1 {
+  font-size: 72pt;
+  color: var(--white);
+}
+
+h2 {
+  font-size: 32pt;
+  color: var(--white);
 }
 
 .body-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+dialog {
+  padding: 32px;
+  background-color: var(--white);
+  border-radius: 8px;
+}
+
+#place-ships {
+  background-color: var(--navy-light);
+}
+
+#place-ships > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+#place-ships > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  background-color: lightgrey;
+  border-radius: 8px;
+}
+
+#ships-container {
+  padding: 16px;
+}
+
+.drag-and-drop {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+}
+
+.drag-and-drop:hover {
+  cursor: pointer;
+}
+
+.ship-label {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.selected-ship > div {
+  background-color: var(--ship-select);
+}
+
+.place-ship-hover {
+  background-color: var(--ship-hover);
+}
+
+#ships-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 220px;
 }
 
 .gameplay {
@@ -25,6 +140,7 @@ body {
 .board {
   display: flex;
   flex-direction: row;
+  border: 0.5px solid black;
 }
 
 .board-col {
@@ -35,7 +151,7 @@ body {
 .square {
   height: 40px;
   width: 40px;
-  border: 1.5px solid black;
+  border: 0.5px solid black;
 }
 
 .enemy:hover {
@@ -44,35 +160,67 @@ body {
 }
 
 .miss {
-  background-color: white;
+  background-color: var(--miss);
 }
 
 .hit {
-  background-color: orange;
+  background-color: var(--hit);
 }
 
 .sunk {
-  background-color: red;
+  background-color: var(--sunk);
 }
 
 .ship {
-  background-color: navy;
+  background-color: var(--ship);
 }
 
 .empty {
-  background-color: skyblue;
+  background-color: var(--empty);
 }
 
 .btn {
-  background-color: red;
-  color: white;
-  width: fit-content;
   padding: 16px 32px;
   border-radius: 8px;
   border: 1px solid black;
+  font-weight: bold;
+  min-width: 160px;
 }
 
 .btn:hover {
   cursor: pointer;
-  background-color: darkred;
+}
+
+.btn-red {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.btn-red:hover {
+  background-color: var(--dark-red);
+}
+
+.btn-grey {
+  background-color: rgb(235, 235, 235);
+}
+
+.btn-grey:hover {
+  background-color: rgb(193, 193, 193);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#enemy-alert,
+#player-alert {
+  min-height: 18px;
 }

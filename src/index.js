@@ -8,26 +8,37 @@ const player2 = new Player(false);
 const screen = screenController();
 
 const startButton = document.querySelector("#start-btn");
-const randomizeButton = document.querySelector("#randomize");
+const randomizeButton = document.querySelector("#randomize-btn");
+const clearButton = document.querySelector("#clear-btn");
 const playButton = document.querySelector("#play-btn");
 const enemyBoard = document.querySelector("#enemy-board");
+const shipsContainer = document.querySelector("#ships-container");
 
 startButton.addEventListener("click", () => {
-  player1.gameboard.placeAllShipsRandom();
   screen.hideStartScreen();
-  screen.renderPlaceShips(player1);
+  screen.renderPlaceShipsBoard(player1);
+  screen.renderAllDragDropShips(player1);
   screen.showPlaceShipsModal();
 });
 
 randomizeButton.addEventListener("click", () => {
   player1.gameboard.placeAllShipsRandom();
-  screen.renderPlaceShips(player1);
+  screen.clearDragDropShips();
+  screen.renderPlaceShipsBoard(player1);
+});
+
+clearButton.addEventListener("click", () => {
+  player1.gameboard.resetBoard();
+  screen.renderPlaceShipsBoard(player1);
+  screen.renderAllDragDropShips(player1);
 });
 
 playButton.addEventListener("click", () => {
-  player2.gameboard.placeAllShipsRandom();
-  screen.closePlaceShipsModal();
-  screen.renderGameplay(player1, player2);
+  if (shipsContainer.textContent == "") {
+    player2.gameboard.placeAllShipsRandom();
+    screen.closePlaceShipsModal();
+    screen.renderGameplay(player1, player2);
+  }
 });
 
 enemyBoard.addEventListener("click", (event) => {
@@ -53,10 +64,11 @@ enemyBoard.addEventListener("click", (event) => {
 
 const playAgainButton = document.querySelector("#play-again");
 playAgainButton.addEventListener("click", () => {
+  screen.clearGameplay();
   player2.gameboard.resetBoard();
   player1.gameboard.resetBoard();
-  player1.gameboard.placeAllShipsRandom();
   screen.closeEndgameModal();
-  screen.renderPlaceShips(player1);
+  screen.renderPlaceShipsBoard(player1);
+  screen.renderAllDragDropShips(player1);
   screen.showPlaceShipsModal();
 });
