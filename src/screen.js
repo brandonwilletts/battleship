@@ -102,8 +102,8 @@ export function screenController() {
   }
 
   function showEndgameModal(message) {
-    const h1 = endgameDialog.querySelector("h1");
-    h1.textContent = message;
+    const h2 = endgameDialog.querySelector("h2");
+    h2.textContent = message;
     endgameDialog.showModal();
   }
 
